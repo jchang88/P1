@@ -46,8 +46,8 @@ public class DLList<T> implements List<T> {
     private int size;
     /** Current node (think of as a cursor between nodes). */
     private Node curr;
-    /** Position of the current node in int. */    
-    private int position;
+    /** Position of the cursor in int form. */
+    private int position;    
 
     /**
      * Create an empty list with sentinels.
@@ -153,7 +153,7 @@ public class DLList<T> implements List<T> {
      */
     public void prev() {
         if (this.position != 0) {
-            this.curr = this.curr.prev;
+            this.curr = this.prev;
             this.position -= 1;
         }
     }
@@ -163,9 +163,7 @@ public class DLList<T> implements List<T> {
      */
     public void next() {
         if (this.position != this.size - 1) {
-            this.curr = this.curr.next;
-            this.position += 1;
-        }
+             this.curr  
     }
 
     /**
@@ -173,7 +171,8 @@ public class DLList<T> implements List<T> {
      * @return the current position in the list
      */
     public int currPos() {
-        return this.position;
+        // dummy implementation
+        return 0;
     }
 
     /**
@@ -182,8 +181,8 @@ public class DLList<T> implements List<T> {
      * @return true if successfully changed position, false otherwise
      */
     public boolean moveToPos(int pos) {
-        this.position = pos;
-        return true;
+        // dummy implementation
+        return false;
     }
 
     /**
@@ -191,9 +190,7 @@ public class DLList<T> implements List<T> {
      * @return true if the current position is the end of the list
      */
     public boolean isAtEnd() {
-        if (this.position == this.size - 1) {
-            return true;
-        }
+        // dummy implementation
         return false;
     }
 
