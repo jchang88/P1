@@ -38,10 +38,8 @@ public class DLList<T> implements List<T> {
         }
     }
 
-    /** Head sentinel node. */
+    /** Head node. */
     private Node head;
-    /** Tail sentinel node. */
-    private Node tail;
     /** Number of actual data nodes in list. */
     private int size;
     /** Current node (think of as a cursor between nodes). */
@@ -62,9 +60,7 @@ public class DLList<T> implements List<T> {
     public void clear() {
         this.size = 0;
         this.head = new Node(null, null, null);
-        this.tail = new Node(null, this.head, null);
-        this.head.next = this.tail;
-        this.curr = this.head;  // because insert will insert after curr
+        this.curr = this.head;
     }
 
     /**
@@ -74,11 +70,25 @@ public class DLList<T> implements List<T> {
      * @return true if successfully inserted, false otherwise
      */
     public boolean insert(T t) {
-        Node n = new Node(t, this.curr, this.curr.next);
-        n.prev.next = n;   // connect left neighbor
-        n.next.prev = n;   // connect right neighbor
-        this.size++;
-        return true;
+        if (this.size == 0){
+            this.head.data = t;
+            this.head.prev = this.head;
+            this.head.next = this.head;
+            this.size++;
+            return true;
+        } else if (this.size == 1) {
+            Node n = new Node(t, this.head, this.head);
+            this.head.next = n;
+            this.head.prev = n;
+            this.size++;
+            return true;
+        } else {
+            Node n = new Node(t, this.curr, this.curr.next);
+            n.prev.next = n;   // connect left neighbor
+            n.next.prev = n;   // connect right neighbor
+            this.size++;
+            return true;
+        }
     }
 
     /**
@@ -89,7 +99,7 @@ public class DLList<T> implements List<T> {
      */
     public boolean append(T t) {
         Node temp = this.curr;        // hold onto original position
-        this.curr = this.tail.prev;   // move to before the tail sentinel
+        this.curr = this.head.prev;   // move to before the tail sentinel
         this.insert(t);               // code reuse!
         this.curr = temp;             // restore cursor to original position
         return true;
@@ -100,7 +110,7 @@ public class DLList<T> implements List<T> {
      * @return the value of the element removed, null if list is empty
      */
     public T remove() {
-        if (this.curr.next == this.tail) {
+        if (this.curr.next == this.head.prev) {
             return null;
         }
         T val = this.curr.next.data;
@@ -115,7 +125,7 @@ public class DLList<T> implements List<T> {
      * @return the value of the current element, null if none
      */
     public T getValue() {
-        if (this.curr.next == this.tail) {
+        if (this.curr.next == this.head.prev) {
             return null;
         }
         return this.curr.next.data;
@@ -143,7 +153,7 @@ public class DLList<T> implements List<T> {
      * Set the current position to the end of the list.
      */
     public void moveToEnd() {
-        this.curr = this.tail;
+        this.curr = this.head.prev;
         this.position = this.size - 1;
     }
 
