@@ -1,16 +1,16 @@
 /**
- * Doubly Linked List implementation of the List interface.
- * Uses sentinel nodes at the head & tail, and an inner Node class.
- * This is only a partial implementation, loosely based on OpenDSA version.
+ * Circular Linked List implementation of the List interface.
+ * No sentinel nodes at the head and tail, and an inner Node class.
+ * This is based on the OpenDSA version of the List interface.
  *
  * This version differs notably from the DSA version in that the curr 
  * data member refers to the node *before* the cursor, whereas in OpenDSA
  * the curr data member refers to the node *after* the cursor.
  *
- * @author Joanne Selinski
+ * @author Joanne Selinski, Steven Chen, Jeffrey Chang
  * @param <T> the type of the List
  */
-public class DLList<T> implements List<T> {
+public class CList<T> implements List<T> {
 
     /**
      * Inner doubly linked Node class for convenience.
@@ -61,6 +61,7 @@ public class DLList<T> implements List<T> {
         this.size = 0;
         this.head = new Node(null, null, null);
         this.curr = this.head;
+        this.position = 0;
     }
 
     /**
@@ -71,23 +72,30 @@ public class DLList<T> implements List<T> {
      */
     public boolean insert(T t) {
         if (this.size == 0){
+            // one node with references to itself
             this.head.data = t;
             this.head.prev = this.head;
             this.head.next = this.head;
             this.size++;
             return true;
         } else if (this.size == 1) {
+            // two nodes with references to each other
             Node n = new Node(t, this.head, this.head);
             this.head.next = n;
             this.head.prev = n;
+            this.curr = n;
+            this.position = this.position+1;
             this.size++;
             return true;
-        } else {
+        } else if (this.size > 1) {
             Node n = new Node(t, this.curr, this.curr.next);
             n.prev.next = n;   // connect left neighbor
             n.next.prev = n;   // connect right neighbor
+            this.curr = n;
             this.size++;
             return true;
+        } else {
+            return false;
         }
     }
 
@@ -99,10 +107,10 @@ public class DLList<T> implements List<T> {
      */
     public boolean append(T t) {
         Node temp = this.curr;        // hold onto original position
-        this.curr = this.head.prev;   // move to before the tail sentinel
-        this.insert(t);               // code reuse!
+        this.curr = this.head.prev;   // move to before the tail
+        boolean b = this.insert(t);   // code reuse!
         this.curr = temp;             // restore cursor to original position
-        return true;
+        return b;
     }
 
     /**
@@ -110,36 +118,19 @@ public class DLList<T> implements List<T> {
      * @return the value of the element removed, null if list is empty
      */
     public T remove() {
-        if (this.curr.next == this.head.prev) {
+        if (size == 0) {
             return null;
         }
-        T val = this.curr.next.data;
-        this.curr.next = this.curr.next.next;  // bypass node being deleted
-        this.curr.next.prev = this.curr;       // bypass it in other direction
+        T val = this.curr.data;
+        this.curr.prev.next = this.curr.next;   // bypass node being deleted
+        this.curr.next.prev = this.curr.prev;   // bypass it in other direction
+        if (this.curr == this.head) {
+            this.head = this.curr.next;
+        }
+        this.curr = this.curr.next;             // remove node from curr
         this.size--;
         return val;
     }
-
-    /**
-     * Return the current element (data to right of cursor).
-     * @return the value of the current element, null if none
-     */
-    public T getValue() {
-        if (this.curr.next == this.head.prev) {
-            return null;
-        }
-        return this.curr.next.data;
-    }
-
-    /**
-     * Return the number of elements in the list.
-     * @return the length of the list
-     */
-    public int length() {
-        return this.size;
-    }
-
-    /* ---------- METHODS BELOW THIS LINE ARE NOT IMPLEMENTED ------------ */
 
     /**
      * Set the current position to the start of the list.
@@ -159,23 +150,36 @@ public class DLList<T> implements List<T> {
 
     /**
      * Move the current position one step left,
-     * no change if already at beginning.
+     * move to end if at beginning.
      */
     public void prev() {
-        if (this.position != 0) {
-            this.curr = this.curr.prev;
+        this.curr = this.curr.prev;
+        if (this.position == 0) {
+            this.position = this.size-1;
+        } else {
             this.position -= 1;
         }
     }
 
     /**
-     * Move the current position one step right, no change if already at end.
+     * Move the current position one step right,
+     * move to beginning if at end.
      */
     public void next() {
-        if (this.position != this.size - 1) {
-            this.curr = this.curr.next;
+        this.curr = this.curr.next;
+        if (this.position == this.size-1) {
+            this.position = 0;
+        } else {
             this.position += 1;
         }
+    }
+
+    /**
+     * Return the number of elements in the list.
+     * @return the length of the list
+     */
+    public int length() {
+        return this.size;
     }
 
     /**
@@ -192,8 +196,11 @@ public class DLList<T> implements List<T> {
      * @return true if successfully changed position, false otherwise
      */
     public boolean moveToPos(int pos) {
-        this.position = pos;
-        return true;
+        if (pos >= 0 && pos <= this.size-1) {
+            this.position = pos;
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -205,6 +212,30 @@ public class DLList<T> implements List<T> {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Return the current element (data to left of cursor).
+     * @return the value of the current element, null if none
+     */
+    public T getValue() {
+        if (this.size == 0) {
+            return null;
+        }
+        return this.curr.data;
+    }
+
+    /**
+     * Return the current element, and set cursor to next element.
+     * @return the value of the current element, null if none
+     */
+    public T cycle() {
+        if (this.size == 0) {
+            return null;
+        }
+        T val = this.curr.data;
+        this.next();
+        return val;
     }
 
 }
