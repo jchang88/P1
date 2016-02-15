@@ -71,7 +71,7 @@ public class CList<T> implements List<T> {
      * @return true if successfully inserted, false otherwise
      */
     public boolean insert(T t) {
-        if (this.size == 0){
+        if (this.size == 0) {
             // one node with references to itself
             this.head.data = t;
             this.head.prev = this.head;
@@ -84,7 +84,7 @@ public class CList<T> implements List<T> {
             this.head.next = n;
             this.head.prev = n;
             this.curr = n;
-            this.position = this.position+1;
+            this.position = this.position + 1;
             this.size++;
             return true;
         } else if (this.size > 1) {
@@ -118,7 +118,7 @@ public class CList<T> implements List<T> {
      * @return the value of the element removed, null if list is empty
      */
     public T remove() {
-        if (size == 0) {
+        if (this.size == 0) {
             return null;
         }
         T val = this.curr.data;
@@ -149,27 +149,23 @@ public class CList<T> implements List<T> {
     }
 
     /**
-     * Move the current position one step left,
-     * move to end if at beginning.
+     * Move the current position one step left, no change if already
+     * at beginning.
      */
     public void prev() {
-        this.curr = this.curr.prev;
-        if (this.position == 0) {
-            this.position = this.size-1;
-        } else {
+        if (this.position != 0) {
+            this.curr = this.curr.prev;
             this.position -= 1;
         }
     }
 
     /**
-     * Move the current position one step right,
-     * move to beginning if at end.
+     * Move the current position one step right, no change if already
+     * at end (last node).
      */
     public void next() {
-        this.curr = this.curr.next;
-        if (this.position == this.size-1) {
-            this.position = 0;
-        } else {
+        if (this.position != this.size - 1) {
+            this.curr = this.curr.next;
             this.position += 1;
         }
     }
@@ -196,7 +192,7 @@ public class CList<T> implements List<T> {
      * @return true if successfully changed position, false otherwise
      */
     public boolean moveToPos(int pos) {
-        if (pos >= 0 && pos <= this.size-1) {
+        if (pos >= 0 && pos <= this.size - 1) {
             this.position = pos;
             return true;
         }
@@ -234,7 +230,11 @@ public class CList<T> implements List<T> {
             return null;
         }
         T val = this.curr.data;
-        this.next();
+        if (this.position == this.size - 1) {
+            this.curr = this.head;
+        } else {
+            this.next();
+        }
         return val;
     }
 
