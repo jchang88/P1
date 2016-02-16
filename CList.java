@@ -50,7 +50,7 @@ public class CList<T> implements List<T> {
     /**
      * Create an empty list with sentinels.
      */
-    public DLList() {
+    public CList() {
         this.clear();  // code reuse!
     }
     
@@ -78,21 +78,15 @@ public class CList<T> implements List<T> {
             this.head.next = this.head;
             this.size++;
             return true;
-        } else if (this.size == 1) {
-            // two nodes with references to each other
-            Node n = new Node(t, this.head, this.head);
-            this.head.next = n;
-            this.head.prev = n;
-            this.curr = n;
-            this.position = this.position + 1;
-            this.size++;
-            return true;
-        } else if (this.size > 1) {
-            Node n = new Node(t, this.curr, this.curr.next);
+        } else if (this.size >= 1) {
+            Node n = new Node(t, this.curr.prev, this.curr);
             n.prev.next = n;   // connect left neighbor
             n.next.prev = n;   // connect right neighbor
             this.curr = n;
             this.size++;
+            if (this.position == 0) {
+                this.head = this.curr;
+            }
             return true;
         } else {
             return false;
@@ -107,7 +101,7 @@ public class CList<T> implements List<T> {
      */
     public boolean append(T t) {
         Node temp = this.curr;        // hold onto original position
-        this.curr = this.head.prev;   // move to before the tail
+        this.curr = this.head;        // move to before the head
         boolean b = this.insert(t);   // code reuse!
         this.curr = temp;             // restore cursor to original position
         return b;
@@ -236,6 +230,25 @@ public class CList<T> implements List<T> {
             this.next();
         }
         return val;
+    }
+
+    /**
+     * Puts circular list into string, with head element as first element.
+     * @return the concatenated string of elements
+     */
+    public String toString() {
+        String str = "[ ";
+        Node temp = this.curr;
+        int tempPos = this.position;
+        this.moveToStart();
+        for (int i = 0; i < this.size; i++) {
+            str += this.getValue() + " ";
+            this.next();
+        }
+        str += "]";
+        this.curr = temp;
+        this.position = tempPos;
+        return str;
     }
 
 }
