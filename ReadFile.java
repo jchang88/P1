@@ -33,9 +33,9 @@ public class ReadFile {
         Scanner inline;
         String line;
         String name, item;
-        int time, under, over;
+        private int time, under, over;
         while (infile.hasNext()) {
-            name = infile.nextLine();
+            name = "[ " + infile.nextLine();
             line = infile.nextLine();
             while (!line.equals("")) {
                 inline = new Scanner(line);
@@ -46,6 +46,7 @@ public class ReadFile {
                 name += " " + item + " " + time + " " + under + " " + over;
                 line = infile.nextLine();
             }
+            name += " ]";
             System.out.println(name);
         }
     }

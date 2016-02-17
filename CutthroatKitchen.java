@@ -10,7 +10,7 @@ public class CutthroatKitchen {
     //imports the scanner
     import java.util.Scanner;
     //imports the file reader
-    import java.io.FileREader;
+    import java.io.FileReader;
     //imports IOExceptions
     import java.io.IOException;
     //imports the file printer
@@ -19,8 +19,6 @@ public class CutthroatKitchen {
     import java.io.FileWriter;
     //imports array index out of bounds exception
     import java.util.ArrayIndexOutOfBoundsException;
-    //imports string tokenizer
-    import java.util.StringTokenizer;
 
     //keeps track of the accumulation of penalty points
     private int penalties = 0;
@@ -31,16 +29,43 @@ public class CutthroatKitchen {
      * @param args the argument
      */
     public static void main(String[] args) throw IOException {
-        Scanner kb = new Scanner(System.in);
-        String fileName = "game1.txt";
-        Scanner inFile = new Scanner(new FileReader(fileName));
-        PrintWriter outFile = new PrintWriter(new FileWriter("sim0.txt");
-        while (inFile.hasNextLine()) {
-            String fileLine = inFile.nextLine();
-            StringTokenizer st = new StringTokenizer(fileLine, " ");
-            String 
-        }
-        inFile.close();
-    }
+        Scanner infile = null;
+        boolean inerror = false;
 
+        try {
+            System.out.println("0 " + args[0] + " should be input filename");
+            infile = new Scanner(new FileReader(args[0]));
+        } catch (ArrayIndexOutOfBoundsException a) {
+            System.err.println("must give input filename at command line");
+            inerror = true;
+        } catch (IOException f) {
+            System.err.println("can't open that file, try again");
+            inerror = true;
+        }
+        if (inerror) {
+            System.err.println("exiting...");
+            System.exit(1);
+        }
+        
+        Scanner inline;
+        String line;
+        String name, item;
+        int time, under, over;
+        while (infile.hasNext()) {
+            name = infile.nextLine();
+            line = infile.nextLine();
+            while (!line.equals("")) {
+                inline = new Scanner(line);
+                item = inline.next();
+                time = inline.nextInt();
+                under = inline.nextInt();
+                over = inline.nextInt();
+                name += " " + item + " " + time + " " + under + " " + over;
+                line = infile.nextLine();
+            }
+            System.out.println(name);
+        }
+
+    }
 }
+
