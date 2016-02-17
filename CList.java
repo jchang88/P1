@@ -122,17 +122,18 @@ public class CList<T> implements List<T> {
             return null;
         }
         T val = this.curr.data;
-        this.curr.prev.next = this.curr.next;       // bypass node being deleted
-        this.curr.next.prev = this.curr.prev;       // bypass it in other direction
+        this.curr.prev.next = this.curr.next;    // bypass node being deleted
+        this.curr.next.prev = this.curr.prev;    // bypass it in other direction
         if (this.curr == this.head) {
             this.head = this.curr.next;
-        } else if (this.curr == this.head.prev) {   // if curr is tail, make new curr the new tail
+        } else if (this.curr == this.head.prev) { 
+            // if curr is tail, make new curr the new tail
             this.curr = this.curr.prev;
-            this.position -= 1;
+            this.position--;
             this.size--;
             return val;
         }
-        this.curr = this.curr.next;                 // remove node from curr
+        this.curr = this.curr.next;              // remove node from curr
         this.size--;
         return val;
     }
