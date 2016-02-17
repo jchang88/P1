@@ -147,18 +147,15 @@ public class CList<T> implements List<T> {
      * Set the current position to the end of the list.
      */
     public void moveToEnd() {
-<<<<<<< HEAD
         if (this.size != 0) {
             this.curr = this.head.prev;
             this.position = this.size - 1;
         }
-=======
         if (this.size == 0) {
             return;
         }
         this.curr = this.head.prev;
         this.position = this.size - 1;
->>>>>>> bd0ff6fbd009533bed009b1ba704ebcef7a2641e
     }
 
     /**
