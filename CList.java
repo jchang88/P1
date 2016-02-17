@@ -226,9 +226,8 @@ public class CList<T> implements List<T> {
     public boolean isAtEnd() {
         if (this.position == this.size - 1) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     /**
