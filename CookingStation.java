@@ -6,12 +6,15 @@
  * @author Joanne Selinski, Steven Chen, Jeffrey Chang
  */
 
-public class CookingStation extends CList<CookingItem> implements CookingStationInterface {
+public class CookingStation extends CList<CookingItem> 
+    implements CookingStationInterface {
     
     /** Name of station. */
     private String name;
 
-    /** Constructor to build the cooking station */
+    /** Constructor to build the cooking station. 
+     * @param n the name of the station
+     */
     public CookingSation(String n) {
         this.name = n;
     } 
@@ -32,11 +35,12 @@ public class CookingStation extends CList<CookingItem> implements CookingStation
         }
     }
 
-    /** Tend the current item
+    /** Tend the current item.
      *  @param removeThreshold the number of minutes that may be used to 
      *            determine if an item should be removed from the station.
      *  @param penaltyThreshold the limit on the penalty value that may be
-                  used to determine if an item should be removed from the station.
+                  used to determine if an item should be removed from the 
+                  station.
      *  @return the item if you decide to remove it, or null otherwise
      */
     public CookingItem tend(int removeThreshold, int penaltyThreshold) {

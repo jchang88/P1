@@ -1,6 +1,10 @@
-
-
-
+/**
+ * Main program to run cutthroat kitchen game.
+ *
+ * @author Steven Chen schen107, Jeffrey Chang jchang88
+ * 600.226.02
+ * Assignment p1
+ */
 
 public class CutthroatKitchen {
     import java.util.Scanner;
