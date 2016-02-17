@@ -13,9 +13,9 @@ public class CookingItem implements CookingItemInterface {
     private int cookingTime;
     // instance variable for the last time this dish was checked
     private int timeChecked;
-    // instance variable for the penalty per minute for this dish
+    // instance variable for the undercooking penalty per minute
     private int uPen;
-    //
+    // instance variable for the overcooking penalty per minute
     private int oPen;
    
     /**

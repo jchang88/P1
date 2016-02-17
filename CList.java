@@ -10,8 +10,8 @@
  * @author Joanne Selinski, Steven Chen, Jeffrey Chang
  * @param <T> the type of the List
  */
-public class CList<T> implements List<T> {
 
+public class CList<T> implements List<T> {
     /**
      * Inner doubly linked Node class for convenience.
      * Note that the generic type is implied since we are within DLList<T>.
@@ -147,8 +147,10 @@ public class CList<T> implements List<T> {
      * Set the current position to the end of the list.
      */
     public void moveToEnd() {
-        this.curr = this.head.prev;
-        this.position = this.size - 1;
+        if (this.size != 0) {
+            this.curr = this.head.prev;
+            this.position = this.size - 1;
+        }
     }
 
     /**
