@@ -11,18 +11,25 @@ public class CookingStation extends CList<CookingItem> implements CookingStation
     /** Name of station. */
     private String name;
 
+    /** Constructor to build the cooking station */
+    public CookingSation(String n) {
+        this.name = n;
+    }    
 
     /** Put a new dish at the end of the station.
      *  @param it the dish to add
      */
     public void addItem(CookingItem it) {
-
+        this.append(it);
     }
 
     /** Simulate one minute time passing for this station.
      */
     public void tick() {
-
+        for (int i = 0; i < this.length(); i++) {
+            this.getValue().tick();
+            this.cycle();
+        }
     }
 
     /** Tend the current item
@@ -33,6 +40,10 @@ public class CookingStation extends CList<CookingItem> implements CookingStation
      *  @return the item if you decide to remove it, or null otherwise
      */
     public CookingItem tend(int removeThreshold, int penaltyThreshold) {
-
+        if (this.getValue.timeRemaining() < removeThreshold || this.getValue.penalty() < penaltyThreshold) {
+            return this.remove();
+        } else {
+            return null;
+        }
     }
 }

@@ -1,8 +1,8 @@
-/**
- * Interface for the cooking items for the Cutthroat Kitchen simulation.
- * Based on the code provided for the assignment.
+/** 
+ * Interface for the cooking items for Cutthroat Kitchen assingment.
+ * Code based on the code provided in the  p1 assignment document.
  *
- * @author Joanne Selinski, Steven Chen schen 107, Jeffrey Chang jchang88
+ * @author Joanne Selinski, Steven Chen schen107, Jeffrey Chang jchang88
  * 600.226.02
  * Assignment p1
  */
