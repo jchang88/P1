@@ -7,15 +7,21 @@
  */
 
 public class CookingItem implements CookingItemInterface {
-    // instance variable for the name of the dish
+    /** instance variable for the name of the dish */
     private String name;
-    // instance variable for the remaining cooking time
+    /** instance variable for the remaining cooking time */
     private int cookingTime;
-    // instance variable for the last time this dish was checked
+    /** instance variable for the last time this dish was checked */
     private int timeChecked;
+<<<<<<< HEAD
     // instance variable for the undercooking penalty per minute
     private int uPen;
     // instance variable for the overcooking penalty per minute
+=======
+    /** instance variable for the undercooked penalty per minute for this dish */
+    private int uPen;
+    /** instance variable for the overcooked penalty per minute for this dish */
+>>>>>>> bd0ff6fbd009533bed009b1ba704ebcef7a2641e
     private int oPen;
    
     /**
@@ -28,7 +34,7 @@ public class CookingItem implements CookingItemInterface {
     public CookingItem(String n, int cT, int u, int o) {
          this.name = n;
          this.cookingTime = cT;
-         this.uPen = u
+         this.uPen = u;
          this.oPen = o;
          this.timeChecked = 0;
     }    
@@ -36,21 +42,21 @@ public class CookingItem implements CookingItemInterface {
     /** Implements a simulation of one minute of time for this item by
      * decrementing cooking time by one minute
      */
-    public void tick(){
+    public void tick() {
          this.cookingTime--;
     }
 
     /** Get the time remaining for cooking this dish.
      * @return the time in minutes
      */
-    public int timeRemaining(){
+    public int timeRemaining() {
          return this.cookingTime;
     }
     
     /** Calculate the penalty if this dish were removed now.
      * @return the penalty
      */
-    public int penalty(){
+    public int penalty() {
          if (this.cookingTime < 0) {
              return this.cookingTime * oPen;
          } else {

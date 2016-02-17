@@ -14,7 +14,7 @@ public class CookingStation extends CList<CookingItem> implements CookingStation
     /** Constructor to build the cooking station */
     public CookingSation(String n) {
         this.name = n;
-    }    
+    } 
 
     /** Put a new dish at the end of the station.
      *  @param it the dish to add
@@ -40,7 +40,8 @@ public class CookingStation extends CList<CookingItem> implements CookingStation
      *  @return the item if you decide to remove it, or null otherwise
      */
     public CookingItem tend(int removeThreshold, int penaltyThreshold) {
-        if (this.getValue.timeRemaining() < removeThreshold || this.getValue.penalty() < penaltyThreshold) {
+        if (this.getValue.timeRemaining() < removeThreshold 
+                || this.getValue.penalty() < penaltyThreshold) {
             return this.remove();
         } else {
             return null;
