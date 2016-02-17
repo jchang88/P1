@@ -7,7 +7,9 @@
  * data member refers to the node *before* the cursor, whereas in OpenDSA
  * the curr data member refers to the node *after* the cursor.
  *
- * @author Joanne Selinski, Steven Chen, Jeffrey Chang
+ * @author Joanne Selinski, Steven Chen schen107, Jeffrey Chang jchang88
+ * 600.226.02
+ * Assignment p1
  * @param <T> the type of the List
  */
 

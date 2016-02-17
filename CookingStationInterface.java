@@ -1,6 +1,6 @@
 /**
  * Interface for a Cooking station, based on the code
- *  provided in the assignment document.
+ * provided in the assignment document.
  *
  * @author Joanne Selinski
  */

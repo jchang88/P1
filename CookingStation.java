@@ -3,7 +3,9 @@
  * Each station is implemented with a circular linked list data structure.
  * Based on the Cooking Station interface provided in the assignment document.
  *
- * @author Joanne Selinski, Steven Chen, Jeffrey Chang
+ * @author Joanne Selinski, Steven Chen schen107, Jeffrey Chang jchang88
+ * 600.226.02
+ * Assignment p1
  */
 
 public class CookingStation extends CList<CookingItem> 

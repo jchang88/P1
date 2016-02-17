@@ -2,7 +2,7 @@
  * Interface for the cooking items for Cutthroat Kitchen assingment.
  * Code based on the code provided in the  p1 assignment document.
  *
- * @author Joanne Selinski, Steven Chen schen107, Jeffrey Chang jchang88
+ * @author Joanne Selinski
  * 600.226.02
  * Assignment p1
  */
