@@ -255,6 +255,7 @@ public class CList<T> implements List<T> {
         T val = this.curr.data;
         if (this.position == this.size - 1) {
             this.curr = this.head;
+            this.position = 0;
         } else {
             this.next();
         }
