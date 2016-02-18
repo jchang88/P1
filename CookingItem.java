@@ -3,7 +3,7 @@
  *
  * @author Joanne Selinski, Steven Chen schen107, Jeffrey Chang jchang88
  * 600.226.02
- * Assignment p1
+ * Assignment P1
  */
 
 public class CookingItem implements CookingItemInterface {
@@ -14,10 +14,12 @@ public class CookingItem implements CookingItemInterface {
     /** Instance variable for the last time this dish was checked. */
     private int timeChecked;
     /** Instance variable for the undercooked penalty per minute for this 
-dish. */
+     *  dish. 
+     */
     private int uPen;
     /** Instance variable for the overcooked penalty per minute for this 
-dish. */
+     *  dish.
+     */
     private int oPen;
    
     /**
@@ -33,7 +35,14 @@ dish. */
         this.uPen = u;
         this.oPen = o;
         this.timeChecked = 0;
-    }    
+    }
+
+    /** Gets the name of the dish.
+     * @return the name of the dish
+     */
+    public String getNameI() {
+        return this.name;
+    }
 
     /** Implements a simulation of one minute of time for this item by
      * decrementing cooking time by one minute.
@@ -54,7 +63,7 @@ dish. */
      */
     public int penalty() {
         if (this.cookingTime < 0) {
-            return this.cookingTime * this.oPen;
+            return -(this.cookingTime * this.oPen);
         } else {
             return this.cookingTime * this.uPen;
         }

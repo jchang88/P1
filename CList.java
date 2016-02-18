@@ -9,7 +9,7 @@
  *
  * @author Joanne Selinski, Steven Chen schen107, Jeffrey Chang jchang88
  * 600.226.02
- * Assignment p1
+ * Assignment P1
  * @param <T> the type of the List
  */
 
@@ -255,6 +255,7 @@ public class CList<T> implements List<T> {
         T val = this.curr.data;
         if (this.position == this.size - 1) {
             this.curr = this.head;
+            this.position = 0;
         } else {
             this.next();
         }
