@@ -22,13 +22,13 @@ public class CutthroatKitchen {
 
     //keeps track of the accumulation of penalty points
     private int penalties = 0;
-    CList<CookingStation> game = new CList<CookingStation>();
     
     /**
      * Main method that executes the game.
      * @param args the argument
      */
     public static void main(String[] args) throw IOException {
+        CList<CookingStation> game = new CList<CookingSTation>();
         Scanner infile = null;
         boolean inerror = false;
 
