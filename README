@@ -11,4 +11,6 @@ around and fix random things which we weren't sure were wrong or not. A
 suggestion would be splitting part A and B into different deadlines to 
 make sure that people are keeping up with the tasks. Having a set 
 assignment would also help since it kept fluctuating as the deadline came 
-closer, changing our interpretation of the assignment.
+closer, changing our interpretation of the assignment. We didn't have 
+enough time to thoroughly optimize the simP.txt, but we tied with 
+sim1.txt.
