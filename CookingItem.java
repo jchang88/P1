@@ -3,7 +3,7 @@
  *
  * @author Joanne Selinski, Steven Chen schen107, Jeffrey Chang jchang88
  * 600.226.02
- * Assignment p1
+ * Assignment P1
  */
 
 public class CookingItem implements CookingItemInterface {
@@ -63,7 +63,7 @@ public class CookingItem implements CookingItemInterface {
      */
     public int penalty() {
         if (this.cookingTime < 0) {
-            return this.cookingTime * this.oPen;
+            return -(this.cookingTime * this.oPen);
         } else {
             return this.cookingTime * this.uPen;
         }

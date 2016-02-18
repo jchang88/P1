@@ -5,7 +5,7 @@
  *
  * @author Joanne Selinski, Steven Chen schen107, Jeffrey Chang jchang88
  * 600.226.02
- * Assignment p1
+ * Assignment P1
  */
 
 public class CookingStation extends CList<CookingItem> 
@@ -54,7 +54,7 @@ public class CookingStation extends CList<CookingItem>
      */
     public CookingItem tend(int removeThreshold, int penaltyThreshold) {
         if (this.getValue().timeRemaining() <= removeThreshold 
-                || this.getValue().penalty() >= penaltyThreshold) {
+                || this.getValue().penalty() <= penaltyThreshold) {
             return this.remove();
         } else {
             return null;

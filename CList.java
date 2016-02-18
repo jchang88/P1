@@ -9,7 +9,7 @@
  *
  * @author Joanne Selinski, Steven Chen schen107, Jeffrey Chang jchang88
  * 600.226.02
- * Assignment p1
+ * Assignment P1
  * @param <T> the type of the List
  */
 

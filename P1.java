@@ -3,8 +3,9 @@
  *
  * @author Steven Chen schen107, Jeffrey Chang jchang88
  * 600.226.02
- * Assignment p1
+ * Assignment P1
  */
+
 //imports the scanner
 import java.util.Scanner;
 //imports the file reader
@@ -15,19 +16,50 @@ import java.io.IOException;
 import java.io.PrintWriter;
 // imports file writer
 import java.io.FileWriter;
-//imports array index out of bounds exception
-// import java.util.ArrayIndexOutOfBoundsException;
 
-public class CutthroatKitchen {
-    
+/** Main driver for cutthroatkitchen simulation. */
+public final class P1 {
+   
+    /** Empty constructor.
+     */
+    private P1() {
+    } 
+
     /**
      * Main method that executes the game.
      * @param args the argument
+     * @throws IOException if an exception is found
      */
     public static void main(String[] args) throws IOException {
+        //instance variable for number 0
+        final int zero = 0;
+        //instance variable for number 1
+        final int one = 1;
+        //instance variable for number 2
+        final int two = 2;
+        //instance variable for number 3
+        final int three = 3;
+        //instance variable for number 4
+        final int four = 4;
+        //instance variable for number 5
+        final int five = 5;
 
-        //keeps track of the accumulation of penalty points
-        int penalties = 0;
+        runSim(args, zero, zero, "sim0.txt");
+        runSim(args, one, zero, "sim1.txt");
+        runSim(args, two, zero, "sim2.txt");
+        // "optimized" simulation thresholds
+        runSim(args, zero, three, "simP.txt");
+    }
+    
+
+    /** Runs the Cutthroat kitchen simulation.
+     *  @param args the arguments input into main
+     *  @param removeThreshold the removing threshold used
+     *  @param penaltyThreshold the penalty threshold used
+     *  @param outputFile name of output file
+     */
+    public static void runSim(String[] args, int removeThreshold, 
+            int penaltyThreshold, String outputFile) {
 
         // circular list of stations
         CList<CookingStation> game = new CList<CookingStation>();
@@ -71,22 +103,48 @@ public class CutthroatKitchen {
             }
             game.append(tempStation);
         }
+
+        //keeps track of the accumulation of penalty points
+        int penalties = 0;
+
+        // scan file input and read into game CList
+        PrintWriter outfile = null;
+        boolean outerror = false;
+
+        // move to tail before first tick, so the first tick starts at the head.
+        game.moveToEnd();
+        String kitchen = "";
+        try {
+            outfile = new PrintWriter(new FileWriter(outputFile));
+        } catch (ArrayIndexOutOfBoundsException a) {
+            System.err.println("must give input filename at command line");
+            outerror = true;
+        } catch (IOException f) {
+            System.err.println("can't open that file, try again");
+            outerror = true;
+        }
+        if (outerror) {
+            System.err.println("exiting...");
+            System.exit(1);
+        }
+
         
         // tick until all stations are done
         while (game.length() != 0) {
-            // Remove any empty stations
-            for (int i = 0; i < game.length(); i++) {
-                if (game.getValue().length() == 0) {
-                    game.remove();
-                }
+
+            // Remove any empty stations (if a station is removed, it cycles)
+            if (game.getValue().length() == 0) {
+                game.remove();
+            } else {
+                // cycle if no station is removed
                 game.cycle();
             }
 
             // Save current station position
             int stationPos = game.currPos();
 
-            // Making string to output
-            String kitchen = "[ ";
+            // Making string to output and ticking
+            kitchen += "[ ";
             game.moveToStart();
             for (int i = 0; i < game.length(); i++) {
                 // save current item position
@@ -101,31 +159,26 @@ public class CutthroatKitchen {
                 }
                 kitchen += " ] ";
                 game.getValue().moveToPos(itemPos);
-                game.cycle();
-            }
-            kitchen += "]\n";
-
-            // Print kitchen string
-            // TODO: print to output file
-            System.out.print(kitchen);
-            
-            
-            // tend current item at current station
-            game.moveToPos(stationPos);
-            CookingItem temp = game.getValue().tend(2, 1000);
-
-            // only cycle if tend doesn't remove an item, remove already "cycles" to the next item
-            if (temp == null) {
-                game.getValue().cycle();
-            }
-            game.cycle();
-
-            // tick every station
-            for (int i = 0; i < game.length(); i++) {
                 game.getValue().tick();
                 game.cycle();
             }
+            kitchen += "]\n";
+            
+            // tend current item at current station
+            game.moveToPos(stationPos);
+            CookingItem temp = game.getValue().tend(removeThreshold, 
+                    penaltyThreshold);
+
+            // only cycle if tend doesn't remove an item
+            if (temp != null) {
+                penalties += temp.penalty();
+            } else {
+                game.getValue().cycle();
+            }
         }
+
+        outfile.print(kitchen + "Final penalty was: " + penalties + "\n");
+        outfile.close();
+        infile.close();
     }
 }
-
